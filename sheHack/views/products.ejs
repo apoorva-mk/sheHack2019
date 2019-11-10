@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>eBech Products</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href=" <link rel="stylesheet" type="text/css" href="../public/stylesheets/toggle.css">
+  <link rel="stylesheet" href=" <link rel="stylesheet" type="text/css" href="../public/stylesheets/product-grid.css">
+  <link rel="stylesheet" href=" <link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"></script>
+</head>
+
+<script>
+function setImage(source) {
+  document.getElementById("myImg").src = "/images/"+source+".jpeg";
+  console.log("/images/"+source+".jpeg");
+}
+</script>
+
+
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 17px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+line { color: #F90B6D; font-family: 'Open Sans', sans-serif; font-size: 24px; font-weight: 300; line-height: 32px; margin: 0 0 14px; }
+
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+
+}
+
+.wrapper > div {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    padding: 1em;
+    color: #d9480f;
+    border-radius: 8px;
+}
+
+.buy-button {
+  background-color: #3399FF;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.buy-button1 {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  border-radius: 8px;
+}
+
+.buy-button1:hover {
+  opacity: 0.6;
+}
+
+</style>
+
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Welcome <%= userName %></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <form action="/profile" method="GET">
+          <a class="nav-link" href="/profile">My profile</a>
+        </form>
+        </li>
+        <li class="nav-item dropdown" style="float: right;">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Shop by Category
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/products/books">Books and stationery</a>
+            <a class="dropdown-item" href="/products/appliances">Appliances</a>
+            <a class="dropdown-item" href="/products/household">Household</a>
+            <a class="dropdown-item" href="/products/furniture">Furniture</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/products">All items</a>
+          </div>
+
+        </li>
+        <form id="form-id" method="get" action="/products/sort/" style = "margin-left: 10px; margin-top : 8px;">
+            <button>Sort</button>
+        </form>
+      </ul>
+      <form class="form-inline my-2 my-lg-0" action = "/products/search/" method = "GET">
+         <input class="form-control mr-sm-2" type="text" name="Search">
+       <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
+      </form>
+    </div>
+  </nav>
+  <br>
+  <line style="margin-left: 40px">Products available</line>
+  <br>
+  <br>
+  <div style = "padding-right : 40px;"> 
+      <ol class="wrapper">
+          <% result.forEach(function(item){ %>
+            <div>
+            <center>
+              <img src="/images/<%= item.filename %>" alt="Product" width="300" height="300" id="myImg">
+              <br>
+              <line ><%= item.desc%></line>
+              <br>
+               <line style="font-size : 17px;">Price: <%= item.price%></line>
+              <br>  
+              <form action = "/products/buy/" method = "GET">
+                <input type="hidden" name="itemId" value="<%= item.pid %>" />
+                <input type="hidden" name="seller" value="<%= item.seller%>" />
+                <input type="hidden" name="itemName" value="<%= item.desc%>" />
+                <input class="buy-button buy-button1" type="submit" value="Buy">
+              </form> 
+              </center>
+            </div>
+          <% }); %>
+      </ol>
+  </div>
+  </div>
+</body>

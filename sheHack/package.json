@@ -1,0 +1,31 @@
+{
+  "name": "shehack",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "commander": "^4.0.0",
+    "cookie-parser": "^1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "^2.7.1",
+    "express": "^4.16.4",
+    "firebase-admin": "^8.7.0",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "node-express-generator": "0.0.1",
+    "nodemon": "^1.19.4",
+    "store": "^2.0.12",
+    "url": "^0.11.0"
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
